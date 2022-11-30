@@ -4,7 +4,7 @@ from PIL import Image, ImageDraw
 
 
 def transform(point):
-    return point[1], -point[0] + (540 + 1)
+    return point[1], -point[0] + 540
 
 
 def angle(p1: tuple[int, int], p2: tuple[int, int], p3: tuple[int, int]) -> int:
@@ -35,12 +35,12 @@ def ConvexHull(pointList: list[tuple[int, int]]) -> list[tuple[int, int]]:
 
 
 def main():
-    with open("DS8.txt", "r") as file:
+    with open('DS8.txt', 'r') as file:
         lines = file.readlines()
 
     pointList = []
     for line in lines:
-        coords = line.strip().split(" ")
+        coords = line.strip().split(' ')
         x = int(coords[0])
         y = int(coords[1])
         point = (x, y)
@@ -51,18 +51,18 @@ def main():
         for point in convexHull:
             file.write(f'{point[0]} {point[1]}\n')
 
-    image = Image.new("RGB", (960, 540))
+    image = Image.new('RGB', (960, 540))
     draw = ImageDraw.Draw(image)
 
     for point in pointList:
-        draw.point(point, fill="white")
+        draw.point(point, fill='white')
 
     for i in range(len(convexHull) - 1):
         draw.line(convexHull[i] + convexHull[i + 1], fill='blue')
     draw.line(convexHull[-1] + convexHull[0], fill='blue')
 
-    image.save('result.png')
+    image.save('result.png', 'PNG')
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
